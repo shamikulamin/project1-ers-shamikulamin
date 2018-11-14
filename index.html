@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="login.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet'>
+    
+</head>
+<body>
+    <div class="split left">
+        <div class="centered">
+          <img src="img/asphalt-dark-dawn.jpg" alt="logImg">
+        </div>
+      </div>
+      
+      <div class="split right">
+        <div class="centered">
+                <div class="wrapper fadeInDown">
+                        <div id="formContent">
+                          <!-- Tabs Titles -->
+                          <!-- <img src="img/asphalt-dark-dawn.jpg" alt="logImg" id = 'rightBg'> -->
+                          <!-- Icon -->
+                          <div class="fadeIn first">
+                             <!-- <img src="img/login_icon.png" id="icon" /> -->
+                            <h1>Login</h1>
+                          </div>
+                      
+                          <!-- Login Form -->
+                           <form onsubmit="loginReq(event);" method='post'>
+                          <!-- <form  method="post" > -->
+                            <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
+                            <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+                            <input type="submit" class="fadeIn fourth" value="Log In">
+                          </form>
+                      
+                          <!-- Remind Passowrd -->
+                          <div id="formFooter">
+                            <h6 class="underlineHover" id = "status"></h6> 
+                            <!-- <a class="underlineHover" href="#">Go to the Site</a> -->
+                          </div>
+                      
+                        </div>
+                      </div>
+        </div>
+      </div> 
+</body>
+<script type="text/javascript" src="login.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
