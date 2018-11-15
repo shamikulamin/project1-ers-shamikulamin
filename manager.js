@@ -11,7 +11,7 @@ let userData = {
 let userN = {
     username: user
 }
-fetch('http://localhost:8089/ERS/users/profile', {
+fetch('http://villianpub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/users/profile', {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     credentials: "include", // include, *same-origin, omit
     body: JSON.stringify(userN), // data can be `string` or {object}!
@@ -50,7 +50,7 @@ function profile() {
 
 function logout(event) {
     event.preventDefault();
-    fetch('http://localhost:8089/ERS/users/logout', {
+    fetch('http://villianpub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/users/logout', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         // body: JSON.stringify(data), // data can be `string` or {object}!
@@ -124,7 +124,7 @@ function appendToTable(row, item) {
     }
 }
 
-fetch('http://localhost:8089/ERS/reimbursements/getMan', {
+fetch('http://villianpub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursements/getMan', {
     method: "GET", // *GET, POST, PUT, DELETE, etc.
     credentials: "include", // include, *same-origin, omit
     // body: JSON.stringify(data), // data can be `string` or {object}!
@@ -257,7 +257,7 @@ function updateReq() {
         reimbTypeId: sel.selectedIndex + 1
     };
     console.log(JSON.stringify(data))
-    fetch('http://localhost:8089/ERS/reimbursement/update', {
+    fetch('http://villianpub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursement/update', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -320,7 +320,7 @@ function submitReq() {
 
 
 
-    fetch('http://localhost:8089/ERS/reimbursement/save', {
+    fetch('http://villianpub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursement/save', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!
