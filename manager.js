@@ -2,7 +2,9 @@ const user = localStorage.getItem("username")
 const userid = localStorage.getItem("userId")
 let lastId;
 let cells;
+let nRow;
 let itemCount = 0;
+let allData;
 let userData = {
 
 };
@@ -122,7 +124,7 @@ function appendToTable(row, item) {
     }
 }
 
-fetch('http://localhost:8089/ERS/reimbursements/' + user, {
+fetch('http://localhost:8089/ERS/reimbursements/getMan', {
     method: "GET", // *GET, POST, PUT, DELETE, etc.
     credentials: "include", // include, *same-origin, omit
     // body: JSON.stringify(data), // data can be `string` or {object}!
@@ -133,6 +135,7 @@ fetch('http://localhost:8089/ERS/reimbursements/' + user, {
     .then(response => {
         console.log(response)
         let tab = document.getElementById("dataTable")
+        allData = response;
         response.forEach(async (item) => {
             let row = tab.insertRow(1);
 
@@ -189,10 +192,43 @@ function updateReq() {
     let receiptInput = document.getElementById("editReceipt").value;
     let warn = document.getElementById("warning");
     let sel = document.getElementById('editDropSelect');
-    
-    cells[1].innerHTML = amountInput;
-    cells[4].innerHTML = desc;
-    cells[5].innerHTML = receiptInput;
+    let approval = document.getElementById('editApprovalSelect');
+    console.log(cells);
+    let newStatus;
+    cells[3].innerHTML = getDateTime();
+    switch (approval.value) {
+        case 'Approve':
+            cells[8].innerHTML = "Approved"
+            cells[0].style.backgroundColor = "#baefa2";
+            cells[1].style.backgroundColor = "#baefa2";
+            cells[2].style.backgroundColor = "#baefa2";
+            cells[3].style.backgroundColor = "#baefa2";
+            cells[4].style.backgroundColor = "#baefa2";
+            cells[5].style.backgroundColor = "#baefa2";
+            cells[6].style.backgroundColor = "#baefa2";
+            cells[7].style.backgroundColor = "#baefa2";
+            cells[8].style.backgroundColor = "#baefa2";
+            cells[9].style.backgroundColor = "#baefa2";
+            newStatus = 1;
+            break;
+        case 'Deny':
+            cells[8].innerHTML = "Denied"
+            cells[0].style.backgroundColor = "#ff6666";
+            cells[1].style.backgroundColor = "#ff6666";
+            cells[2].style.backgroundColor = "#ff6666";
+            cells[3].style.backgroundColor = "#ff6666";
+            cells[4].style.backgroundColor = "#ff6666";
+            cells[5].style.backgroundColor = "#ff6666";
+            cells[6].style.backgroundColor = "#ff6666";
+            cells[7].style.backgroundColor = "#ff6666";
+            cells[8].style.backgroundColor = "#ff6666";
+            cells[9].style.backgroundColor = "#ff6666";
+            newStatus = 3;
+            break;
+        default:
+            return;
+    }
+    console.log(sel);
 
     if (isNaN(amountInput)) {
         warn.innerHTML = " Please enter numbers only in Amount";
@@ -208,7 +244,7 @@ function updateReq() {
         id: updateId,
         amount: amountInput,
         submittedTime: getDateTime(),
-        resolved: null,
+        resolved: getDateTime(),
         description: desc,
         receipt: receiptInput,
         authorName: "",
@@ -217,11 +253,11 @@ function updateReq() {
         reimbType: "",
         author: userid,
         resolver: 1,
-        reimbStatusId: 2,
+        reimbStatusId: newStatus,
         reimbTypeId: sel.selectedIndex + 1
     };
     console.log(JSON.stringify(data))
-    fetch('http://localhost:8089/ERS/reimbursement/update/ticket', {
+    fetch('http://localhost:8089/ERS/reimbursement/update', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -307,5 +343,67 @@ $('#reimbModal').on('hidden.bs.modal', function (e) {
     $('#reimb-form').find('input, textarea').val("");
 });
 
+function filter(){
+    let tbl = document.getElementById('dataTable');
+    var rowCount = tbl.rows.length;
+        for (var i = rowCount - 1; i > 0; i--) {
+            tbl.deleteRow(i);
+        }
+    allData.sort(dynamicSort("reimbStatus"))
+    allData.forEach(async (item) => {
+        let row = tbl.insertRow(1);
+
+        appendToTable(row, item);
+        if (itemCount === 0) {
+            lastId = item.id;
+            itemCount = itemCount + 1;
+        }
+
+    })
+    $('#dataTable tr').click(function () {
+        cells = $(this).find("td")
+        // console.log(href)
+        $('#rowModal').modal('show');
+
+        updateId = cells[0].innerText;
+        document.getElementById('editAmount').value = cells[1].innerText;
+        document.getElementById('editDescrip').value = cells[4].innerText;
+        document.getElementById('editReceipt').value = cells[5].innerText;
+        document.getElementById('editStatus').innerHTML = cells[8].innerText;
+        document.getElementById('editDropSelect').value = cells[9].innerText;
 
 
+
+        switch (cells[8].innerText) {
+            case 'Pending':
+                document.getElementById('editAmount').disabled = false;
+                document.getElementById('editDescrip').disabled = false;
+                document.getElementById('editReceipt').disabled = false;
+                document.getElementById('editDropSelect').disabled = false;
+                document.getElementById('editSubBtn').disabled = false;
+                document.getElementById("rowWarning").innerHTML = ""
+                break;
+            default:
+                document.getElementById('editAmount').disabled = true;
+                document.getElementById('editDescrip').disabled = true;
+                document.getElementById('editReceipt').disabled = true;
+                document.getElementById('editDropSelect').disabled = true;
+                document.getElementById('editSubBtn').disabled = true;
+                document.getElementById("rowWarning").innerHTML = "Cannot edit an already resolved reimbursement"
+                break;
+        }
+    });
+    
+}
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if (property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a, b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}

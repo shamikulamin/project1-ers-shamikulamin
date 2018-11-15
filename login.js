@@ -20,6 +20,11 @@ function loginReq(event){
                 localStorage.setItem("username", response.username);
                 localStorage.setItem("userId",response.id);
             }
+            if(response.roleId===2){
+                window.location.replace("manDash.html"); 
+                localStorage.setItem("username", response.username);
+                localStorage.setItem("userId",response.id);
+            }
         })
             
         .catch(error => {

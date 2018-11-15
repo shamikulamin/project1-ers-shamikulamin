@@ -8,8 +8,11 @@ public interface ReimbursementDao {
 	ReimbursementDao currentImplementation = new ReimbursementDaoJdbc();
 	
 	List<Reimbursement> getAll(String s);
+	List<Reimbursement> getAllMan();
 	
 	int save(Reimbursement r);
 	
 	int updateStatus(Reimbursement r);
+	
+	int updateReimb(Reimbursement r);
 }

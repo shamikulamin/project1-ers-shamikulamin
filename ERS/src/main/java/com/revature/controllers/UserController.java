@@ -1,8 +1,10 @@
 package com.revature.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -65,7 +67,17 @@ public class UserController {
 			ResponseMapper.convertAndAttach(u, resp);
 			return;
 		} 
+		else if("users/profile".equals(uri)) {
+			String test = req.getReader().lines().collect(Collectors.joining(System.lineSeparator()));
+			test = test.replaceAll(".*:", "");
+			test = test.replaceAll("\"", "");
+			test = test.replaceAll("}", "");
+			System.out.println(test.replaceAll(".*:", ""));
+			Users u = us.getUserInfo(test);
+			ResponseMapper.convertAndAttach(u, resp);
+		}
 		else if ("users/logout".equals(uri)) {
+			System.out.println("logging out user");
 			req.getSession().invalidate();
 			resp.setStatus(200);
 		}

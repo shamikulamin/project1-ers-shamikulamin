@@ -9,7 +9,11 @@ public interface ReimbursementService {
 	
 	List<Reimbursement> getAll(String S);
 	
+	List<Reimbursement> getAllMan();
+	
 	int save(Reimbursement r);
 	
 	int updateStatus(Reimbursement r);
+	
+	int updateReimb(Reimbursement r);
 }

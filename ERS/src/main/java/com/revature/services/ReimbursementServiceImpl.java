@@ -25,4 +25,14 @@ public class ReimbursementServiceImpl implements ReimbursementService{
 		return rd.updateStatus(r);
 	}
 
+	@Override
+	public int updateReimb(Reimbursement r) {
+		return rd.updateReimb(r);
+	}
+
+	@Override
+	public List<Reimbursement> getAllMan() {
+		return rd.getAllMan();
+	}
+
 }

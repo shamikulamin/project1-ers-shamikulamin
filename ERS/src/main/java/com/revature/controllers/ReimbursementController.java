@@ -44,11 +44,17 @@ public class ReimbursementController {
 		String[] uriArray = uri.split("/");
 		System.out.println(Arrays.toString(uriArray));
 		log.info("retreiving all reimbursements");
-		System.out.println(uriArray[1]);
-		List<Reimbursement> reimb = rs.getAll(uriArray[1]);
-		ResponseMapper.convertAndAttach(reimb, resp);
 		
-		return;
+		System.out.println(uriArray[1]);
+		
+		if("getMan".equals(uriArray[1])) {
+			List<Reimbursement> reimb = rs.getAllMan();
+			ResponseMapper.convertAndAttach(reimb, resp);
+		}
+		else{
+			List<Reimbursement> reimb = rs.getAll(uriArray[1]);
+			ResponseMapper.convertAndAttach(reimb, resp);
+		}
 //		if (uriArray.length == 1) {
 ////			String role = (String) req.getSession().getAttribute("role");
 ////			if (!"ADMIN".equals(role)) {
@@ -77,6 +83,11 @@ public class ReimbursementController {
 			log.info("attempting to update db");
 			Reimbursement r = om.readValue(req.getReader(), Reimbursement.class);
 			rs.updateStatus(r);
+		}
+		else if ("reimbursement/update/ticket".equals(uri)) {
+			log.info("attempting to update ticket db");
+			Reimbursement r = om.readValue(req.getReader(), Reimbursement.class);
+			rs.updateReimb(r);
 		}
 		else {
 			resp.setStatus(404);

@@ -1,0 +1,41 @@
+@font-face {
+    font-family: pub; 
+    src: url('font/SkittlesnBeerNF.ttf');
+ } 
+
+ .navbar-brand{
+     font-family: pub;
+ }
+
+ #head{
+    font-family: pub;
+     margin: auto;
+     margin-top: 30px;
+     background-color: #584e5775; 
+     border-radius: 1.5em;
+     
+ }
+#tableDiv{
+    z-index: 3;
+}
+#navbarTop{
+    z-index: 2;
+}
+/* .background-image {
+  background-size: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  display: block;
+  background-image: url('img/villian-pub-wall.jpg');
+  width: 1200px;
+  height: 800px;
+
+  -webkit-filter: blur(5px);
+  -moz-filter: blur(5px);
+  -o-filter: blur(5px);
+  -ms-filter: blur(5px);
+  filter: blur(5px);
+} */
