@@ -9,7 +9,7 @@ let userData = {
 let userN = {
     username: user
 }
-fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/users/profile', {
+fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/users/profile', {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
     credentials: "include", // include, *same-origin, omit
     body: JSON.stringify(userN), // data can be `string` or {object}!
@@ -48,7 +48,7 @@ function profile() {
 
 function logout(event) {
     event.preventDefault();
-    fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/users/logout', {
+    fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/users/logout', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         // body: JSON.stringify(data), // data can be `string` or {object}!
@@ -122,7 +122,7 @@ function appendToTable(row, item) {
     }
 }
 
-fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/reimbursements/' + user, {
+fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursements/' + user, {
     method: "GET", // *GET, POST, PUT, DELETE, etc.
     credentials: "include", // include, *same-origin, omit
     // body: JSON.stringify(data), // data can be `string` or {object}!
@@ -221,7 +221,7 @@ function updateReq() {
         reimbTypeId: sel.selectedIndex + 1
     };
     console.log(JSON.stringify(data))
-    fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/reimbursement/update/ticket', {
+    fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursement/update/ticket', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!
@@ -284,7 +284,7 @@ function submitReq() {
 
 
 
-    fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/reimbursement/save', {
+    fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/reimbursement/save', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!

@@ -6,7 +6,7 @@ function loginReq(event){
 
     console.log(data);
 
-    fetch('http://villian-pub.s3-website.us-east-2.amazonaws.com//ERS/users/login', {
+    fetch('http://VillianPub-env.f2uxinfeen.us-east-2.elasticbeanstalk.com/ERS/users/login', {
         method: "POST", // *GET, POST, PUT, DELETE, etc.
         credentials: "include", // include, *same-origin, omit
         body: JSON.stringify(data), // data can be `string` or {object}!
