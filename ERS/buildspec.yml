@@ -1,0 +1,9 @@
+version: 0.2
+
+phases:
+  post_build:
+    commands:
+      - cd ERS/ && mvn clean package
+artifacts:
+  files:
+    - 'ERS/target/*.war'
